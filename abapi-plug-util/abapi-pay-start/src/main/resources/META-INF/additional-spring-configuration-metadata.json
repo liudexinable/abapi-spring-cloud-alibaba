@@ -1,0 +1,10 @@
+{
+  "properties": [
+    {
+      "name": "abapi.cloud.pay.config.enabled",
+      "type": "java.lang.Boolean",
+      "defaultValue": true,
+      "description": "enable pay config or not."
+    }
+  ]
+}

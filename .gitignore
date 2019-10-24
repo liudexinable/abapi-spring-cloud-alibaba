@@ -1,3 +1,9 @@
+*.idea
+*.class
+*.iml
+abapi-cloud-examples/
+target/
+
 # Compiled class file
 *.class
 
