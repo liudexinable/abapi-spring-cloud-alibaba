@@ -37,6 +37,7 @@ abapi-spring-cloud-alibaba [![License](http://img.shields.io/:license-apache-bri
 ```
 
 - 通过application.properties进行配置
+
 | 属性  | 说明
 |---|---
 |1|支付宝
@@ -67,6 +68,7 @@ abapi-spring-cloud-alibaba [![License](http://img.shields.io/:license-apache-bri
 ```
 	
 - 通过application.properties进行配置
+
 | 属性  |默认值| 说明
 |---|---|---
 |1|tpc
