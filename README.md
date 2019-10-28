@@ -29,11 +29,11 @@ abapi-spring-cloud-alibaba [![License](http://img.shields.io/:license-apache-bri
 - 添加依赖:
 
 ```xml
-	<dependency>
-		<groupId>com.abapi.cloud.plug</groupId>
-		<artifactId>abapi-pay-start</artifactId>
-		<version>0.8.0</version>
-	</dependency>
+<dependency>
+	<groupId>com.abapi.cloud.plug</groupId>
+	<artifactId>abapi-pay-start</artifactId>
+	<version>1.0.0</version>
+</dependency>
 ```
 ###通过application.properties进行配置
 | 属性  | 说明
@@ -58,11 +58,11 @@ abapi-spring-cloud-alibaba [![License](http://img.shields.io/:license-apache-bri
 - 添加依赖:
 
 ```xml
-		<dependency>
-			<groupId>com.abapi.cloud.plug</groupId>
-			<artifactId>abapi-netty-socket-start</artifactId>
-      <version>1.0.0</version>
-		</dependency>
+<dependency>
+	<groupId>com.abapi.cloud.plug</groupId>
+	<artifactId>abapi-netty-socket-start</artifactId>
+	<version>1.0.0</version>
+</dependency>
 ```
 	
 ### 通过application.properties进行配置
