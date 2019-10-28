@@ -45,6 +45,19 @@ abapi-spring-cloud-alibaba [![License](http://img.shields.io/:license-apache-bri
 |abapi.cloud.pay.wx-properties.wx-secret|signKey 加密对于的key
 |abapi.cloud.pay.wx-properties.wx-sandbox|是否开启沙箱环境,默认false(不开启)
 ### abapi-netty-socket-start 通过application.properties进行配置
+| 属性  |默认值| 说明
+|---|---|---
+|1|tpc
+|abapi.cloud.netty.tcp.enabled|false|开启tcp
+abapi.cloud.netty.tcp.host|0.0.0.0|监听ip
+abapi.cloud.netty.tcp.port|9979|端口号
+abapi.cloud.netty.tcp.reader-idle-time|0|与IdleStateHandler中的readerIdleTimeSeconds一致
+abapi.cloud.netty.tcp.writer-idle-time|0|与IdleStateHandler中的writerIdleTimeSeconds一致
+abapi.cloud.netty.tcp.all-idle-time|0|与IdleStateHandler中的allIdleTimeSeconds一致
+abapi.cloud.netty.tcp.decoder||解码字符
+abapi.cloud.netty.tcp.custom-message-decoder||自己实现的解码器(完整类名)
+abapi.cloud.netty.tcp.custom-message-encoder||自己实现的编码器(完整类名)
+|2|websocket
 
 
 
