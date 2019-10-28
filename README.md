@@ -2,7 +2,7 @@ abapi-spring-cloud-alibaba [![License](http://img.shields.io/:license-apache-bri
 ===================================
 
 ### 简介
-本项目未spring-cloud-alibaba整合脚手架,学习,尝鲜
+本项目为spring-cloud-alibaba整合脚手架,学习,尝鲜
 
 ### 要求
 - jdk版本为1.8或1.8+
