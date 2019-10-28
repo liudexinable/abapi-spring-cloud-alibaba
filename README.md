@@ -25,7 +25,17 @@ abapi-spring-cloud-alibaba [![License](http://img.shields.io/:license-apache-bri
 |10|abapi-plug-util/abapi-elasticsearch-start|spring-data-elasticsearch包的依赖引入
 
 ### abapi-cloud-web-start 通过application.properties进行配置
-### abapi-pay-start 通过application.properties进行配置
+### abapi-pay-start 快速开始
+- 添加依赖:
+
+```xml
+	<dependency>
+		<groupId>com.abapi.cloud.plug</groupId>
+		<artifactId>abapi-pay-start</artifactId>
+		<version>0.8.0</version>
+	</dependency>
+```
+###通过application.properties进行配置
 | 属性  | 说明
 |---|---
 |1|支付宝
@@ -44,7 +54,18 @@ abapi-spring-cloud-alibaba [![License](http://img.shields.io/:license-apache-bri
 |abapi.cloud.pay.wx-properties.wx-cert-path12|p12证书地址
 |abapi.cloud.pay.wx-properties.wx-secret|signKey 加密对于的key
 |abapi.cloud.pay.wx-properties.wx-sandbox|是否开启沙箱环境,默认false(不开启)
-### abapi-netty-socket-start 通过application.properties进行配置
+### abapi-netty-socket-start 快速开始
+- 添加依赖:
+
+```xml
+		<dependency>
+			<groupId>com.abapi.cloud.plug</groupId>
+			<artifactId>abapi-netty-socket-start</artifactId>
+      <version>1.0.0</version>
+		</dependency>
+```
+	
+### 通过application.properties进行配置
 | 属性  |默认值| 说明
 |---|---|---
 |1|tpc
