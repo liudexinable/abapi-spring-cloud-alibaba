@@ -1,8 +1,6 @@
 abapi-spring-cloud-alibaba [![License](http://img.shields.io/:license-apache-brightgreen.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 ===================================
 
-[English Docs](https://github.com/YeautyYE/netty-websocket-spring-boot-starter/blob/master/README.md)
-
 ### 简介
 本项目未spring-cloud-alibaba整合脚手架,学习,尝鲜
 
@@ -11,7 +9,7 @@ abapi-spring-cloud-alibaba [![License](http://img.shields.io/:license-apache-bri
 
 
 ### 模块说明
-> 所有的配置项都在这个注解的属性中
+> 所有的模块说明
 
 | 编号  | 模块 | 说明 
 |---|---|---
@@ -20,12 +18,34 @@ abapi-spring-cloud-alibaba [![License](http://img.shields.io/:license-apache-bri
 |3|abapi-cloud-start/abapi-cloud-nacos-start|nacos的pom引入
 |4|abapi-cloud-start/abapi-cloud-seata-start|seata的pom引入
 |5|abapi-cloud-start/abapi-cloud-sentinel-start|sentinel的pom引入
-|6|abapi-plug-util/abapi-common-util|常用的基础util模块
-|7|abapi-plug-util/abapi-pay-start|支付实现模块只支持(支付宝,微信)部分接口实现
-|8|abapi-plug-util/abapi-netty-socket-start|基于netty实现的tcp,websocket脚手架
-|9|abapi-plug-util/abapi-elasticsearch-start|spring-data-elasticsearch包的依赖引入
+|6|abapi-cloud-start/abapi-cloud-web-start|springboot启动脚手架
+|7|abapi-plug-util/abapi-common-util|常用的基础util模块
+|8|abapi-plug-util/abapi-pay-start|支付实现模块只支持(支付宝,微信)部分接口实现
+|9|abapi-plug-util/abapi-netty-socket-start|基于netty实现的tcp,websocket脚手架
+|10|abapi-plug-util/abapi-elasticsearch-start|spring-data-elasticsearch包的依赖引入
 
-### 通过application.properties进行配置
-> 对注解中的`prefix`进行设置后，即可在`application.properties`中进行配置。如下：
+### abapi-cloud-web-start 通过application.properties进行配置
+### abapi-pay-start 通过application.properties进行配置
+| 属性  | 说明
+|---|---
+|1|支付宝
+|abapi.cloud.pay.ali-app-id|支付宝商户id
+|abapi.cloud.pay.ali-public-key|自己生成的RSA私钥
+|abapi.cloud.pay.ali-private-key|自己生成的RSA公钥
+|abapi.cloud.pay.ali-platform-public-key|支付宝平台返回的公钥
+|abapi.cloud.pay.ali-sign-type|支付宝加密方式只支持(RSA2,RSA),默认RSA2
+|abapi.cloud.pay.ali-public-key256|自己生成的RSA公钥256转码
+|abapi.cloud.pay.ali-sandbox|是否开启沙箱环境,默认false(不开启)
+|2|微信
+|abapi.cloud.pay.wx-properties.trade-type|微信签约类型{APP:app,JSAPI:公众号、小程序,NATIVE:web,MWEB}
+|abapi.cloud.pay.wx-properties.wx-app-id|微信appid
+|abapi.cloud.pay.wx-properties.wx-ip|调用ip
+|abapi.cloud.pay.wx-properties.wx-mch-id|商户id
+|abapi.cloud.pay.wx-properties.wx-cert-path12|p12证书地址
+|abapi.cloud.pay.wx-properties.wx-secret|signKey 加密对于的key
+|abapi.cloud.pay.wx-properties.wx-sandbox|是否开启沙箱环境,默认false(不开启)
+### abapi-netty-socket-start 通过application.properties进行配置
+
+
 
 
