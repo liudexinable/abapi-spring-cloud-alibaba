@@ -1,5 +1,6 @@
 package com.abapi.cloud.pay.model.wx.response;
 
+import com.abapi.cloud.pay.wx.model.UnifiedOrderReturn;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -14,6 +15,8 @@ public class WxPayResponse implements Serializable {
 
 	// 返回码
 	private String code;
+
+	private UnifiedOrderReturn unifiedOrderReturn;
 
 	// 返回错误码
 	private String errorCode;

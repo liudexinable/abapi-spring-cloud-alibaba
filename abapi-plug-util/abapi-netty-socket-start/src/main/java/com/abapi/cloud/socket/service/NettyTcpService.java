@@ -8,6 +8,7 @@ import com.abapi.cloud.socket.mapping.TcpEndpointServerMapping;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
@@ -92,11 +93,19 @@ public class NettyTcpService {
         }
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            boss.shutdownGracefully().syncUninterruptibly();
-            worker.shutdownGracefully().syncUninterruptibly();
+            try {
+                ChannelFuture channelFuture = bootstrap.bind().sync();
+                channelFuture.channel().closeFuture().sync();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                boss.shutdownGracefully().syncUninterruptibly();
+                worker.shutdownGracefully().syncUninterruptibly();
+            }
         }));
 
-        logger.info("------netty tcp host:"+nettyTcpConfigProperties.getHost()+" port:"+nettyTcpConfigProperties.getPort()+" started");
+        logger.info("------netty tcp start success >>> host:"+nettyTcpConfigProperties.getHost()+" port:"+nettyTcpConfigProperties.getPort()+" started");
+
         //ChannelFuture channelFuture = bootstrap.bind(nettyTcpConfigProperties.getPort()).sync();
 
         //channelFuture.channel().closeFuture().sync();

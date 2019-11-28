@@ -119,10 +119,10 @@ public class WxPayExecutor extends AbstractPayExecutor {
                 String paySign = MD5.create().digestHex(sign.getBytes()).toUpperCase();
                 response.setPaySign(paySign);
             }
+            response.setUnifiedOrderReturn(unifiedOrderReturn);
         }else{
-            response.setCode(unifiedOrderReturn.getResult_code());
-            response.setErrorCode(unifiedOrderReturn.getErr_code());
-            response.setErrorMsg(unifiedOrderReturn.getErr_code_des());
+            response.setCode(unifiedOrderReturn.getReturn_code());
+            response.setUnifiedOrderReturn(unifiedOrderReturn);
             logger.error(response.getCode()+">"+response.getErrorMsg());
         }
         return response;
@@ -141,6 +141,7 @@ public class WxPayExecutor extends AbstractPayExecutor {
         unifiedOrder.setNonce_str(RandomUtil.randomString(10));
         unifiedOrder.setNotify_url(request.getCallBack());
         unifiedOrder.setAttach(request.getAttach());
+        unifiedOrder.setTime_expire(request.getTimeExpire());
         return unifiedOrder;
     }
 
@@ -219,37 +220,6 @@ public class WxPayExecutor extends AbstractPayExecutor {
     }
 
     public static void main(String[] args) {
-        // 获取沙箱key
-        Map<String,Object> map = new HashMap<>();
-        map.put("mch_id","1519171091");
-        map.put("nonce_str","12365");
-        String a = "mch_id=1519171091&nonce_str=12365&key=e1782d270825de8820d763af006Sviwo";
-        map.put("sign",MD5.create().digestHex(a));
-
-        String b = "<xml><mch_id>1519171091</mch_id><nonce_str>12365</nonce_str><sign>"+MD5.create().digestHex(a)+"</sign></xml>";
-
-        String post = HttpUtil.post(WxBase.SIGN_KEY_SANDBOX_URL, b);
-        System.out.println(post);
-        Map<String, String> sandbox_signkey = XmlHelper.of(post).toMap();
-        System.out.println(sandbox_signkey.toString());
-        //8dcfdc32b1592ad895eb01fcf64f3acf
-
-
-
-        WxPayRequest request1 = new WxPayRequest();
-        request1.setTotalFee("101");
-        request1.setBody("测试123");
-        request1.setCallBack("http://127.0.0.1");
-        request1.setOutTradeNo(RandomUtil.randomString(16));
-        WxPayBizConfig.WxPayConfig wxPayConfig = new WxPayBizConfig.WxPayConfig();
-        wxPayConfig.setTradeType("APP");
-        wxPayConfig.setWxAppId("wxe424468bae2177a6");
-        wxPayConfig.setWxIp("127.0.0.1");
-        wxPayConfig.setWxSecret("8dcfdc32b1592ad895eb01fcf64f3acf");
-        wxPayConfig.setWxMchId("1519171091");
-        UnifiedOrder order = new WxPayExecutor().bulidUnifiedOrder(request1,wxPayConfig);
-        String url = WxBase.UNIFIED_ORDER_SANDBOX_URL;
-        String result = HttpUtil.post(url, order.genXml(wxPayConfig.getWxSecret()));
-        System.out.println(result);
+       
     }
 }

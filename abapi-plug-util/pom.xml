@@ -117,6 +117,8 @@
 		<module>abapi-pay-start</module>
 		<module>abapi-netty-socket-start</module>
 		<module>abapi-elasticsearch-start</module>
+		<module>abapi-redis-start</module>
+		<module>abapi-mongo-start</module>
 	</modules>
 
 </project>

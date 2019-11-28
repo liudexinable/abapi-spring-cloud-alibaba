@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.abapi.cloud.plug</groupId>
-    <artifactId>abapi-elasticsearch-start</artifactId>
+    <artifactId>abapi-mongo-start</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>abapi-elasticsearch-start</name>
+    <name>abapi-mongo-start</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -27,17 +27,28 @@
 
     <dependencies>
 
-        <!-- es -->
         <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-elasticsearch</artifactId>
-            <version>3.1.2.RELEASE</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+            <version>${spring-boot.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.mongodb</groupId>
+                    <artifactId>mongodb-java-driver</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>3.9.0</version>
         </dependency>
 
     </dependencies>
 
     <build>
-        <finalName>abapi-elasticsearch-start</finalName>
+        <finalName>abapi-mongo-start</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

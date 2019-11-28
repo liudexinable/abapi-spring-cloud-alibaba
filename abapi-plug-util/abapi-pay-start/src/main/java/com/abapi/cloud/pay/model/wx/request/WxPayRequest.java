@@ -23,4 +23,6 @@ public class WxPayRequest {
 
    private String callBack;
 
+   private String timeExpire;
+
 }

@@ -47,7 +47,7 @@ public class TcpEndpointServerMapping{
             attrSession.set(session);
 
             Attribute attrPojo = channel.attr(POJO_KEY);
-            Object implement = aClass.newInstance();
+            final Object implement = SpringContext.getApplicationContext().getBean(aClass);
             attrPojo.set(implement);
 
             Method method = aClass.getDeclaredMethod("doOnOpen", BindResultUtil.bindParamClass(session));
