@@ -26,4 +26,19 @@ public class AliBase {
     public final static String ALIPAY_TRADE_PAGE_PAY = "FAST_INSTANT_TRADE_PAY";
 
     public final static String ALIPAY_TRADE_WAP_PAY = "QUICK_WAP_WAY";
+
+    /**返回**/
+    public final static String RETURN_SUCCESS = "success";
+
+    /**交易成功**/
+    public final static String TRADE_SUCCESS = "TRADE_SUCCESS";
+
+    /**交易完成**/
+    public final static String TRADE_FINISHED = "TRADE_FINISHED";
+
+    /**交易关闭**/
+    public final static String TRADE_CLOSED = "TRADE_CLOSED";
+
+    /**交易创建**/
+    public final static String WAIT_BUYER_PAY = "WAIT_BUYER_PAY";
 }

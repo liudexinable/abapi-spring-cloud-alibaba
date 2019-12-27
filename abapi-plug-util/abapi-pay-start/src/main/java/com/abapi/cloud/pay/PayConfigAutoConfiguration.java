@@ -2,6 +2,8 @@ package com.abapi.cloud.pay;
 
 import com.abapi.cloud.pay.ali.AliPayBizConfig;
 import com.abapi.cloud.pay.wx.WxPayBizConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -25,6 +27,8 @@ import java.util.Map;
 @ComponentScan(basePackages = {"com.abapi.cloud.pay.ali","com.abapi.cloud.pay.wx"})
 public class PayConfigAutoConfiguration {
 
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
     @Autowired
     PayConfigProperties payConfigProperties;
 
@@ -33,6 +37,7 @@ public class PayConfigAutoConfiguration {
         AliPayBizConfig config = new AliPayBizConfig();
         BeanUtils.copyProperties(payConfigProperties,config);
         config.setOpen(payConfigProperties.getAliEnabled());
+        logger.info("Load ALI Properties {}",config);
         return config;
     }
 
@@ -54,7 +59,7 @@ public class PayConfigAutoConfiguration {
             config.setOpen(payConfigProperties.getWxEnabled());
             config.setWxPayConfigs(map);
         }
-
+        logger.info("Load WX Properties {}",config);
         return config;
     }
 

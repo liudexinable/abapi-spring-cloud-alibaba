@@ -11,19 +11,22 @@ import com.abapi.cloud.pay.model.wx.request.WxPayRequest;
 import com.abapi.cloud.pay.model.wx.request.WxRefundRequest;
 import com.abapi.cloud.pay.model.wx.response.WxPayResponse;
 import com.abapi.cloud.pay.wx.model.*;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.io.SAXReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
-import org.w3c.dom.Node;
+import org.springframework.util.StringUtils;
+import org.xml.sax.InputSource;
 
 import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
-import java.io.FileInputStream;
-import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
+import java.io.*;
 import java.security.*;
-import java.security.cert.CertificateException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,6 +55,7 @@ public class WxPayExecutor extends AbstractPayExecutor {
     public void checkSourceProperties() {
         this.checkOpen();
         wxPayBizConfig.getWxPayConfigs().forEach((k,v)->{
+            logger.info("pay check {} params {}",k,v);
             Assert.notNull(v.getTradeType(),"abapi.cloud.pay.wx-properties[N].trade-type is null");
             Assert.notNull(v.getWxIp(),"abapi.cloud.pay.wx-properties[N].wx-ip is null");
             Assert.notNull(v.getWxAppId(),"abapi.cloud.pay.wx-properties[N].wx-app-id is null");
@@ -78,6 +82,9 @@ public class WxPayExecutor extends AbstractPayExecutor {
             logger.info("沙箱环境getSignKey:"+r);
             Map<String, String> signKeyMap = XmlHelper.of(r).toMap();
             wxPayConfig.setWxSecret(signKeyMap.get("sandbox_signkey"));
+            if(StringUtils.isEmpty(wxPayConfig.getWxSecret())){
+                Assert.notNull(wxPayConfig.getWxSecret(),"微信pay 沙箱环境获取signkey失败");
+            }
             url = WxBase.UNIFIED_ORDER_SANDBOX_URL;
         }
         String result = HttpUtil.post(url, order.genXml(wxPayConfig.getWxSecret()));
@@ -163,6 +170,21 @@ public class WxPayExecutor extends AbstractPayExecutor {
         wxpayRefund.setTotal_fee(request.getTotalFee());
         wxpayRefund.setRefund_fee(request.getReturnFee());
         wxpayRefund.setOut_refund_no(request.getOutRequesrNo());
+
+        if(wxPayConfig.getWxSandbox()){
+            // 获取沙箱 signKey
+            String nonceStr = RandomUtil.randomString(10);
+            String key = "mch_id="+wxPayConfig.getWxMchId()+"&nonce_str="+nonceStr+"&key="+wxPayConfig.getWxSecret();
+            String xmlParam = "<xml><mch_id>"+wxPayConfig.getWxMchId()+"</mch_id><nonce_str>"+nonceStr+"</nonce_str><sign>"+MD5.create().digestHex(key)+"</sign></xml>";
+            String r = HttpUtil.post(WxBase.SIGN_KEY_SANDBOX_URL, xmlParam);
+            logger.info("沙箱环境getSignKey:"+r);
+            Map<String, String> signKeyMap = XmlHelper.of(r).toMap();
+            wxPayConfig.setWxSecret(signKeyMap.get("sandbox_signkey"));
+            if(StringUtils.isEmpty(wxPayConfig.getWxSecret())){
+                Assert.notNull(wxPayConfig.getWxSecret(),"微信pay 沙箱环境获取signkey失败");
+            }
+        }
+
         logger.info(wxpayRefund.genXml(wxPayConfig.getWxSecret()));
         WxpayRefundReturn wxpayRefundReturn = null;
         try {
@@ -219,7 +241,86 @@ public class WxPayExecutor extends AbstractPayExecutor {
 
     }
 
+    public Map<String,String> asyCheckReturnParams(HttpServletRequest request){
+        Document doc = null;
+        try {
+            InputStream inStream = request.getInputStream();
+            ByteArrayOutputStream outSteam = new ByteArrayOutputStream();
+            byte[] buffer = new byte[1024];
+            int len = 0;
+            while ((len = inStream.read(buffer)) != -1) {
+                outSteam.write(buffer, 0, len);
+            }
+            outSteam.close();
+            inStream.close();
+            String resultStr  = new String(outSteam.toByteArray(),"utf-8");
+
+            StringReader read = new StringReader(resultStr);
+            InputSource inputSource = new InputSource(read);
+            SAXReader sb = new SAXReader();
+            doc = sb.read(inputSource);
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (DocumentException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        Map<String, String> map = XMLUtil.Dom2Map(doc);
+        return map;
+    }
+
     public static void main(String[] args) {
-       
+        // 获取沙箱key
+        Map<String,Object> map = new HashMap<>();
+        map.put("mch_id","1519171091");
+        map.put("nonce_str","12365");
+        String a = "mch_id=1519171091&nonce_str=12365&key=e1782d270825de8820d763af006Sviwo";
+        map.put("sign",MD5.create().digestHex(a));
+
+        String b = "<xml><mch_id>1519171091</mch_id><nonce_str>12365</nonce_str><sign>"+MD5.create().digestHex(a)+"</sign></xml>";
+
+        String post = HttpUtil.post(WxBase.SIGN_KEY_SANDBOX_URL, b);
+        System.out.println(post);
+        Map<String, String> sandbox_signkey = XmlHelper.of(post).toMap();
+        System.out.println(sandbox_signkey.toString());
+        //8dcfdc32b1592ad895eb01fcf64f3acf
+
+
+
+        WxPayRequest request1 = new WxPayRequest();
+        request1.setTotalFee("101");
+        request1.setBody("测试123");
+        request1.setCallBack("http://127.0.0.1");
+        request1.setOutTradeNo(RandomUtil.randomString(16));
+        WxPayBizConfig.WxPayConfig wxPayConfig = new WxPayBizConfig.WxPayConfig();
+        wxPayConfig.setTradeType("APP");
+        wxPayConfig.setWxAppId("wxe424468bae2177a6");
+        wxPayConfig.setWxIp("127.0.0.1");
+        wxPayConfig.setWxSecret("fbb3930dd6fa252ca1ecfe6f5f514ad0");
+        wxPayConfig.setWxMchId("1519171091");
+        UnifiedOrder order = new WxPayExecutor().bulidUnifiedOrder(request1,wxPayConfig);
+        String url = WxBase.UNIFIED_ORDER_SANDBOX_URL;
+        String result = HttpUtil.post(url, order.genXml(wxPayConfig.getWxSecret()));
+        System.out.println(result);
+    }
+
+    public WxpayCloseReturn orderClose(String payNo, WxPayTrade trade){
+        WxPayBizConfig.WxPayConfig wxPayConfig = wxPayBizConfig.getWxPayConfigs().get(trade.toString());
+        WxpayClose wxpayClose = new WxpayClose();
+        wxpayClose.setAppid(wxPayConfig.getWxAppId());
+        wxpayClose.setMch_id(wxPayConfig.getWxMchId());
+        wxpayClose.setOut_trade_no(payNo);
+        wxpayClose.setNonce_str(RandomUtil.randomString(8));
+        wxpayClose.genXml(wxPayConfig.getWxSecret());
+
+        String result = HttpUtil.post(WxBase.CLOSE_ORDER_URl,
+                wxpayClose.genXml(wxPayConfig.getWxSecret()));
+
+        WxpayCloseReturn wxpayCloseReturn = WxpayXmlUtil.parseWxpayCloseReturn(result);
+        return wxpayCloseReturn;
     }
 }

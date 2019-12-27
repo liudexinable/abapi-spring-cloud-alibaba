@@ -22,6 +22,9 @@ public class WxBase {
     public static final String FAIL = "FAIL";
     public static final String OK = "OK";
 
+    /**成功返回**/
+    public static final String RETURN_SUCCESS = "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>";
+
     /**正式环境**/
     /** 统一下单接口 **/
     public static final String UNIFIED_ORDER_URL = "https://api.mch.weixin.qq.com/pay/unifiedorder";

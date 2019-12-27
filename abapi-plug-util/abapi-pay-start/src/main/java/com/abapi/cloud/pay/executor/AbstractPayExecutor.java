@@ -5,6 +5,9 @@ import com.abapi.cloud.pay.ali.AliPayBizConfig;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
+
 /**
  * @Author ldx
  * @Date 2019/9/30 14:15
@@ -33,8 +36,8 @@ public abstract class AbstractPayExecutor {
     }
 
     public AlipayClient getAlipayClientSpecial(){
-        if(alipayClient == null){
-            alipayClient = new DefaultAlipayClient(aliConfig.getAliSandbox() ? AliBase.SANDBOX_URL : AliBase.PRO_URL,
+        if(alipayClientSpecial == null){
+            alipayClientSpecial = new DefaultAlipayClient(aliConfig.getAliSandbox() ? AliBase.SANDBOX_URL : AliBase.PRO_URL,
                     aliConfig.getAliAppId(),
                     aliConfig.getAliPrivateKey(),
                     AliBase.FORMAT,
@@ -42,7 +45,7 @@ public abstract class AbstractPayExecutor {
                     aliConfig.getAliPlatformPublicKey(),
                     aliConfig.getAliSignType());
         }
-        return alipayClient;
+        return alipayClientSpecial;
     }
 
 
