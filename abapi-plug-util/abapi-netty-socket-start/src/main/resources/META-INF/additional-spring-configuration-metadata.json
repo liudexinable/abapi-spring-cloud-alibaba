@@ -1,0 +1,10 @@
+{
+  "properties": [
+    {
+      "name": "abapi.cloud.netty.socket.config.enabled",
+      "type": "java.lang.Boolean",
+      "defaultValue": true,
+      "description": "enable netty tcp config or not."
+    }
+  ]
+}
