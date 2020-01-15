@@ -4,8 +4,16 @@ abapi-spring-cloud-alibaba [![License](http://img.shields.io/:license-apache-bri
 ### 简介
 本项目为spring-cloud-alibaba整合
 
--分为框架整合和常用插件模块
+分为框架整合和常用插件模块
 
+abapi-cloud-start是spring cloud alibaba 微服务架构组件
+ -abapi-cloud-web-start是springboot启动框架,引入改jar包项目就是一个标准的springboot项目
+ -abapi-cloud-getway-start是微服务网关入口
+ -abapi-cloud-nacos-start是服务发现/配置中心 [服务发现可替换zk等]
+ -abapi-cloud-dubbo-start是rpc
+ -abapi-cloud-seata-start是分布式事务,改项目未升级版本,请自行升级为最新的1.0.0.GA版本
+ -abapi-cloud-sentinel-start是服务熔断,限流
+abapi-plug-util是插件项目
 ### 要求
 - jdk版本为1.8或1.8+
 
