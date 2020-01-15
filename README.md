@@ -23,15 +23,15 @@ abapi-spring-cloud-alibaba [![License](http://img.shields.io/:license-apache-bri
 -   abapi-plug-util是插件项目模块
     
     -   abapi-common-util常用util包
-    -   
+
     -   abapi-pay-start是支付插件包
-    -   
+
     -   abapi-netty-socket-start是socket包
-    -   
+
     -   abapi-elasticsearch-start是es包
-    -   
+
     -   abapi-mongo-start是mongo包
-    -   
+
     -   abapi-redis-start是redis包
 
 ### 要求
