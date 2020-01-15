@@ -53,7 +53,14 @@ abapi-spring-cloud-alibaba [![License](http://img.shields.io/:license-apache-bri
 |9|abapi-plug-util/abapi-netty-socket-start|基于netty实现的tcp,websocket脚手架
 |10|abapi-plug-util/abapi-elasticsearch-start|spring-data-elasticsearch包的依赖引入
 
-### abapi-cloud-web-start 通过application.properties进行配置
+### abapi-cloud-web-start 快速开始
+```xml
+<dependency>
+	<groupId>com.abapi.cloud.start</groupId>
+	<artifactId>abapi-cloud-web-start</artifactId>
+	<version>1.0.0</version>
+</dependency>
+```
 ### abapi-pay-start 快速开始
 - 添加依赖:
 
