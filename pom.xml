@@ -8,7 +8,7 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>abapi-cloud-examples</module>
+		<!--<module>abapi-cloud-examples</module>-->
 		<module>abapi-cloud-start</module>
 		<module>abapi-plug-util</module>
 	</modules>
