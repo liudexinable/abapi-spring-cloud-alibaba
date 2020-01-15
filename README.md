@@ -3,7 +3,8 @@ abapi-spring-cloud-alibaba [![License](http://img.shields.io/:license-apache-bri
 
 ### 简介
 本项目为spring-cloud-alibaba整合
-分为框架整合和常用插件模块
+
+-分为框架整合和常用插件模块
 
 ### 要求
 - jdk版本为1.8或1.8+
