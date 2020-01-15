@@ -6,7 +6,7 @@ abapi-spring-cloud-alibaba [![License](http://img.shields.io/:license-apache-bri
 
 分为框架整合和常用插件模块
 
--   abapi-cloud-start是spring cloud alibaba 微服务架构组件
+-   abapi-cloud-start是spring cloud alibaba 微服务架构组件模块
 
     -   abapi-cloud-web-start是springboot启动框架,引入改jar包项目就是一个标准的springboot项目
  
@@ -20,10 +20,16 @@ abapi-spring-cloud-alibaba [![License](http://img.shields.io/:license-apache-bri
  
     -   abapi-cloud-sentinel-start是服务熔断,限流
  
-abapi-plug-util是插件项目
+-   abapi-plug-util是插件项目模块
+    
+    -   abapi-common-util常用util包
+    -   abapi-pay-start是支付插件包
+    -   abapi-netty-socket-start是socket包
+    -   abapi-elasticsearch-start是es包
+    -   abapi-mongo-start是mongo包
+    -   abapi-redis-start是redis包
 ### 要求
 - jdk版本为1.8或1.8+
-
 
 ### 模块说明
 > 所有的模块说明
