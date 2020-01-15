@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.abapi.cloud.socket.NettySocketConfigAutoConfiguration,\
+com.abapi.cloud.socket.SpringContext

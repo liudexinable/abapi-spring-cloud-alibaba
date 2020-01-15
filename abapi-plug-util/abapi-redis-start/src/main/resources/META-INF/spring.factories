@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.abapi.cloud.redis.RedisAutoConfiguration,\
+com.abapi.cloud.redisson.RedissonAutoConfiguration
