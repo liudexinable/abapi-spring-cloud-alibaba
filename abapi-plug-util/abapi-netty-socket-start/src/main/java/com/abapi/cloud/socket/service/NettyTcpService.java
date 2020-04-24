@@ -8,10 +8,7 @@ import com.abapi.cloud.socket.mapping.TcpEndpointServerMapping;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -79,10 +76,16 @@ public class NettyTcpService {
                             delimiters.toArray(byteBufs);
                             ch.pipeline().addLast(new DelimiterBasedFrameDecoder(nettyTcpConfigProperties.getMaxFrameLength(), byteBufs));
                         }else{
-                            ch.pipeline().addLast(new DelimiterBasedFrameDecoder(nettyTcpConfigProperties.getMaxFrameLength()));
+                            //ch.pipeline().addLast(new DelimiterBasedFrameDecoder(nettyTcpConfigProperties.getMaxFrameLength()));
                         }
 
-                        ch.pipeline().addLast(new TCPServerHandler(new TcpEndpointServerMapping())); //ch.pipeline()管道中添加handle
+                        if(StrUtil.isNotEmpty(nettyTcpConfigProperties.getCustomMessageHandler())){
+                            Object o = Class.forName(nettyTcpConfigProperties.getCustomMessageHandler()).newInstance();
+                            ch.pipeline().addLast((SimpleChannelInboundHandler) o); //ch.pipeline()管道中添加handle
+                        }else{
+                            ch.pipeline().addLast(new TCPServerHandler(new TcpEndpointServerMapping())); //ch.pipeline()管道中添加handle
+                        }
+
                     }
                 });
 

@@ -42,4 +42,6 @@ public class NettyTcpConfigProperties {
 
     private String customMessageEncoder;
 
+    private String customMessageHandler;
+
 }

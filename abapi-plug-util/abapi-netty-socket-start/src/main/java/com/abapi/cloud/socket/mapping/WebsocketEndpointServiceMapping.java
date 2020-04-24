@@ -52,14 +52,14 @@ public class WebsocketEndpointServiceMapping {
             WebsocketSession session = new WebsocketSession(channel);
             attrSession.set(session);
 
+            Attribute attrPojo = channel.attr(POJO_KEY);
+            final Object implement = SpringContext.getApplicationContext().getBean(aClass);
+            attrPojo.set(implement);
+
             HttpHeaders httpHeaders = req.headers();
             ParameterMap parameterMap = new ParameterMap(originalParam);
             Class [] classes = new Class[]{WebsocketSession.class,HttpHeaders.class,ParameterMap.class};
             Method method = aClass.getDeclaredMethod("doOnOpen", classes);
-
-            Attribute attrPojo = channel.attr(POJO_KEY);
-            Object implement = aClass.newInstance();
-            attrPojo.set(implement);
 
             method.setAccessible(true);//设置为可调用私有方法
             method.invoke(implement, BindResultUtil.bindParamValue(session,httpHeaders,parameterMap));

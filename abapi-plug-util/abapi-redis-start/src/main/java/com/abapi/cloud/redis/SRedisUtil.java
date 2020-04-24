@@ -35,6 +35,10 @@ public class SRedisUtil {
         sRedisUtil.redisTemplate = redisTemplate;
     }
 
+    public static RedisTemplate getRedisTemplate(){
+        return sRedisUtil.redisTemplate;
+    }
+
     /**
      * 指定缓存失效时间
      * @param key 键
