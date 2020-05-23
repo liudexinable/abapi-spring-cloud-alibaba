@@ -168,12 +168,12 @@
 	<distributionManagement>
 		<repository>
 			<id>releases</id>
-			<name>nexus-release</name>
+			<name>maven-releases</name>
 			<url>${repos.dist.url}/releases</url>
 		</repository>
 		<snapshotRepository>
 			<id>snapshots</id>
-			<name>nexus-snapshots</name>
+			<name>maven-snapshots</name>
 			<url>${repos.dist.url}/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
