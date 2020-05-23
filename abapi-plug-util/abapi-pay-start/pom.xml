@@ -149,6 +149,7 @@
     <distributionManagement>
         <repository>
             <id>releases</id>
+<<<<<<< HEAD
             <name>maven-releases</name>
             <url>${repos.dist.url}/maven-releases</url>
         </repository>
@@ -156,6 +157,15 @@
             <id>snapshots</id>
             <name>maven-snapshots</name>
             <url>${repos.dist.url}/maven-snapshots</url>
+=======
+            <name>nexus-release</name>
+            <url>${repos.dist.url}/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>nexus-snapshots</name>
+            <url>${repos.dist.url}/snapshots</url>
+>>>>>>> origin/dev
         </snapshotRepository>
     </distributionManagement>
 

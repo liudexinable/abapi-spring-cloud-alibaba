@@ -37,6 +37,10 @@ abapi-spring-cloud-alibaba [![License](http://img.shields.io/:license-apache-bri
 ### 要求
 - jdk版本为1.8或1.8+
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/dev
 ### 模块说明
 > 所有的模块说明
 
